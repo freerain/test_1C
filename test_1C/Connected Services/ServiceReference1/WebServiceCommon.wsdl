@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd1="http://www.sample-package.org" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soapbind="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12bind="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:tns="http://www.sample-package.org" name="WebServiceCommon" targetNamespace="http://www.sample-package.org" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema xmlns:xs1="http://www.sample-package.org" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.sample-package.org" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ОписаниеЗначения">
+        <xs:sequence>
+          <xs:element name="Наименование" type="xs:string" />
+          <xs:element name="Значение" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ОписаниеСтроки">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Значения" type="xs1:ОписаниеЗначения" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ОписаниеТаблицы">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Строки" type="xs1:ОписаниеСтроки" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="СписокТаблиц">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Таблицы" type="xs1:ОписаниеТаблицы" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="WebServiceCommonFunction">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="UserName" type="xs:string" />
+            <xs:element name="FunctionName" type="xs:string" />
+            <xs:element name="Parameters" nillable="true" type="xs1:ОписаниеСтроки" />
+            <xs:element name="Tables" nillable="true" type="xs1:СписокТаблиц" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="WebServiceCommonFunctionResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="xs:string" />
+            <xs:element name="Parameters" nillable="true" type="xs1:ОписаниеСтроки" />
+            <xs:element name="Tables" nillable="true" type="xs1:СписокТаблиц" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Тест">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Артикул" type="xs1:ОписаниеЗначения" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ТестResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Upload">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="GUID" type="xs:string" />
+            <xs:element name="Prefix" type="xs:string" />
+            <xs:element name="Struktura" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UploadResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" type="xs:string" />
+            <xs:element name="Prefix" type="xs:string" />
+            <xs:element name="Struktura" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+  <message name="WebServiceCommonFunctionRequestMessage">
+    <part name="parameters" element="tns:WebServiceCommonFunction" />
+  </message>
+  <message name="WebServiceCommonFunctionResponseMessage">
+    <part name="parameters" element="tns:WebServiceCommonFunctionResponse" />
+  </message>
+  <message name="ТестRequestMessage">
+    <part name="parameters" element="tns:Тест" />
+  </message>
+  <message name="ТестResponseMessage">
+    <part name="parameters" element="tns:ТестResponse" />
+  </message>
+  <message name="UploadRequestMessage">
+    <part name="parameters" element="tns:Upload" />
+  </message>
+  <message name="UploadResponseMessage">
+    <part name="parameters" element="tns:UploadResponse" />
+  </message>
+  <portType name="WebServiceCommonPortType">
+    <operation name="WebServiceCommonFunction">
+      <input message="tns:WebServiceCommonFunctionRequestMessage" />
+      <output message="tns:WebServiceCommonFunctionResponseMessage" />
+    </operation>
+    <operation name="Тест">
+      <input message="tns:ТестRequestMessage" />
+      <output message="tns:ТестResponseMessage" />
+    </operation>
+    <operation name="Upload">
+      <input message="tns:UploadRequestMessage" />
+      <output message="tns:UploadResponseMessage" />
+    </operation>
+  </portType>
+  <binding name="WebServiceCommonSoapBinding" type="tns:WebServiceCommonPortType">
+    <soapbind:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="WebServiceCommonFunction">
+      <soapbind:operation soapAction="http://www.sample-package.org#WebServiceCommon:WebServiceCommonFunction" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="Тест">
+      <soapbind:operation soapAction="http://www.sample-package.org#WebServiceCommon:Тест" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="Upload">
+      <soapbind:operation soapAction="http://www.sample-package.org#WebServiceCommon:Upload" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="WebServiceCommonSoap12Binding" type="tns:WebServiceCommonPortType">
+    <soap12bind:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="WebServiceCommonFunction">
+      <soap12bind:operation soapAction="http://www.sample-package.org#WebServiceCommon:WebServiceCommonFunction" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="Тест">
+      <soap12bind:operation soapAction="http://www.sample-package.org#WebServiceCommon:Тест" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="Upload">
+      <soap12bind:operation soapAction="http://www.sample-package.org#WebServiceCommon:Upload" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="WebServiceCommon">
+    <port name="WebServiceCommonSoap" binding="tns:WebServiceCommonSoapBinding">
+      <documentation>
+        <wsi:Claim xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" conformsTo="http://ws-i.org/profiles/basic/1.1" />
+      </documentation>
+      <soapbind:address location="http://10.1.0.63/phaetontrade/ws/WebServiceCommon.1cws" />
+    </port>
+    <port name="WebServiceCommonSoap12" binding="tns:WebServiceCommonSoap12Binding">
+      <soap12bind:address location="http://10.1.0.63/phaetontrade/ws/WebServiceCommon.1cws" />
+    </port>
+  </service>
+</definitions>

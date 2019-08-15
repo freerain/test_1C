@@ -1,0 +1,38 @@
+﻿@model IEnumerable<test_1C.Models.ManagerSalesStatisticsInfo>
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="jumbotron" style="padding-top: 5px;">
+    <table class="table table-striped table-dark" style=" margin-left: 0px;margin-right: 20px;">
+        <thead class="table table-striped">
+            <tr>
+                <th scope="col" class="table-primary" style="text-align:center; vertical-align: inherit;">Менеджер</th>
+                <th scope="col" style="text-align:center; vertical-align: inherit;">% по компании</th>
+                <th scope="col" style="text-align:center; vertical-align: inherit;">% по валовой прибыли</th>
+                <th scope="col" style="text-align:center; vertical-align: inherit;">% по компании (ТОП 10+1)</th>
+                <th scope="col" style="text-align:center; vertical-align: inherit;">% по валовой прибыли (ТОП 10+1)</th>
+                <th scope="col" style="text-align:center; vertical-align: inherit;">% по компании на дату</th>
+                <th scope="col" style="text-align:center; vertical-align: inherit;">% по валовой прибыли на дату</th>
+                <th scope="col" style="text-align:center; vertical-align: inherit;">% по компании на дату (ТОП 10+1)</th>
+                <th scope="col" style="text-align:center; vertical-align: inherit;">% по валовой прибыли на дату (ТОП 10+1)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="table-primary">@item.manager</td>
+                    <td style="text-align:center; vertical-align: inherit;">@item.Companyplan</td>
+                    <td style="text-align:center; vertical-align: inherit;">@item.Grossplan</td>
+                    <td style="text-align:center; vertical-align: inherit;"> @item.Companyplantop</td>
+                    <td style="text-align:center; vertical-align: inherit;">@item.Grossplantop</td>
+                    <td style="text-align:center; vertical-align: inherit;">@item.Companyplandate</td>
+                    <td style="text-align:center; vertical-align: inherit;">@item.Grossplandate</td>
+                    <td style="text-align:center; vertical-align: inherit;">@item.Companyplandatetop</td>
+                    <td style="text-align:center; vertical-align: inherit;">@item.Grossplandatetop</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
